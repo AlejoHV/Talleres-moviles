@@ -21,7 +21,3 @@ El presente taller cuenta con las siguientes características:
 <img width="301" height="620" alt="image" src="https://github.com/user-attachments/assets/c42254e0-84c8-4a07-ad7f-50dbd4790188" />
 <img width="295" height="619" alt="image" src="https://github.com/user-attachments/assets/f74c207e-daf9-41d8-8120-ea713cd52d0a" />
 <img width="298" height="619" alt="image" src="https://github.com/user-attachments/assets/83004cf3-4d7e-42bc-8e46-b2cf842df2e0" />
-
-
-
-
