@@ -25,32 +25,21 @@ class CustomDrawer extends StatelessWidget {
               ),
             ),
           ),
+          //!INICIO
           ListTile(
             leading: const Icon(Icons.home),
             title: const Text('Inicio'),
             onTap: () {
-              //context.go('/'); // Navega a la ruta principal
-              //Reemplaza la ruta actual en la pila de navegación.
-              //No permite volver atrás automáticamente, ya que no agrega la nueva ruta a la pila.
-              //Útil para navegación sin historial, como en barra de navegación o cambiar de pestañas.
-              context.go('/'); // Navega a la ruta principal
+              context.go('/');
               Navigator.pop(context); // Cierra el drawer
             },
           ),
-          //!Vehículos
+          //!VEHICULOS
           ListTile(
             leading: const Icon(Icons.motorcycle),
             title: const Text('Vehículos'),
             onTap: () {
               context.push('/vehiculos');
-              Navigator.pop(context); // <-- Cierra el Drawer después de navegar
-            },
-          ),
-          ListTile(
-            leading: const Icon(Icons.person),
-            title: const Text('Perfil'),
-            onTap: () {
-              context.replace('/profile');
               Navigator.pop(context);
             },
           ),

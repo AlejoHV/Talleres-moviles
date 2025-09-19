@@ -12,29 +12,57 @@ class HomeScreen extends StatelessWidget {
       body: Padding(
         padding: const EdgeInsets.all(16.0),
         child: Center(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              const Text(
-                'Jose Alejandro Hernández Vallecilla',
-                style: TextStyle(fontSize: 18),
+          child: Card(
+            elevation: 8,
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(24),
+            ),
+            child: Padding(
+              padding: const EdgeInsets.symmetric(vertical: 32, horizontal: 24),
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  const Text(
+                    'Jose Alejandro Hernández Vallecilla',
+                    style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                    textAlign: TextAlign.center,
+                  ),
+                  const SizedBox(height: 18),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: const [
+                      Icon(
+                        Icons.motorcycle,
+                        color: Colors.blueAccent,
+                        size: 40,
+                      ),
+                      SizedBox(width: 16),
+                      Icon(
+                        Icons.directions_car,
+                        color: Colors.redAccent,
+                        size: 40,
+                      ),
+                      SizedBox(width: 16),
+                      Icon(Icons.directions_bus, color: Colors.green, size: 40),
+                    ],
+                  ),
+                  const SizedBox(height: 24),
+                  const Image(
+                    image: NetworkImage(
+                      'https://static.vecteezy.com/system/resources/thumbnails/013/529/416/small_2x/motorcycle-logo-design-and-modern-superbike-silhouette-concept-template-vector.jpg',
+                    ),
+                    width: 180,
+                    height: 180,
+                  ),
+                  const SizedBox(height: 24),
+                  const Text(
+                    '¡Bienvenido al panel de medios de transporte!',
+                    style: TextStyle(fontSize: 16, color: Colors.black54),
+                    textAlign: TextAlign.center,
+                  ),
+                ],
               ),
-              const SizedBox(height: 20),
-              ElevatedButton(
-                onPressed: () {
-                  print('¡Botón presionado!');
-                },
-                child: const Text('Presióname'),
-              ),
-              const SizedBox(width: 10),
-              const Image(
-                image: NetworkImage(
-                  'https://static.vecteezy.com/system/resources/thumbnails/013/529/416/small_2x/motorcycle-logo-design-and-modern-superbike-silhouette-concept-template-vector.jpg',
-                ),
-                width: 200,
-                height: 200,
-              ),
-            ],
+            ),
           ),
         ),
       ),

@@ -1,8 +1,9 @@
+import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:talleresmoviles/views/ciclo_vida/ciclo_vida_screen.dart';
 import 'package:talleresmoviles/views/paso_parametros/detalle_screen.dart';
 import 'package:talleresmoviles/views/paso_parametros/paso_parametros_screen.dart';
-import 'package:talleresmoviles/views/vehiculos/vehiculos_screen.dart';
+import 'package:talleresmoviles/views/tabbar_widget/vehiculos_screen.dart';
 
 import '../views/home/home_screen.dart';
 

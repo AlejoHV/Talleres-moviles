@@ -16,6 +16,7 @@ class CicloVidaScreen extends StatefulWidget {
 
 class CicloVidaScreenState extends State<CicloVidaScreen> {
   String texto = "REGISTRO 🟢";
+  int contador = 0;
 
   /// Se ejecuta una vez cuando el objeto State es insertado en el árbol de widgets.
   /// Ideal para inicializaciones que solo deben ocurrir una vez.
@@ -44,14 +45,71 @@ class CicloVidaScreenState extends State<CicloVidaScreen> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Text(texto, style: const TextStyle(fontSize: 20)),
-            const SizedBox(height: 20),
-            ElevatedButton(
-              onPressed: actualizarTexto,
-              child: const Text("Actualizar Texto"),
-              style: ElevatedButton.styleFrom(
-                backgroundColor: const Color.fromARGB(255, 116, 250, 116),
-                minimumSize: const Size(90, 45),
+            const Text(
+              "Demostración del ciclo de vida",
+              style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+            ),
+            const SizedBox(height: 24),
+            // Elegí Stepper porque es un widget visualmente atractivo y permite mostrar
+            // el avance de un proceso, ideal para ilustrar el ciclo de vida y cambios de estado.
+            Stepper(
+              currentStep: contador,
+              onStepContinue: avanzarPaso,
+              onStepCancel: retrocederPaso,
+              steps: [
+                Step(
+                  title: const Text('Registro'),
+                  content: const Text('Pantalla inicializada (initState)'),
+                  isActive: contador >= 0,
+                  state: contador > 0 ? StepState.complete : StepState.indexed,
+                ),
+                Step(
+                  title: const Text('Evidencia'),
+                  content: const Text('Estado actualizado (setState)'),
+                  isActive: contador >= 1,
+                  state: contador > 1 ? StepState.complete : StepState.indexed,
+                ),
+                Step(
+                  title: const Text('Finalizado'),
+                  content: const Text('Pantalla destruida (dispose)'),
+                  isActive: contador >= 2,
+                  state: contador == 2 ? StepState.complete : StepState.indexed,
+                ),
+              ],
+              controlsBuilder: (context, details) {
+                return Row(
+                  children: [
+                    if (contador < 2)
+                      ElevatedButton(
+                        onPressed: details.onStepContinue,
+                        child: const Text('Siguiente'),
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: Colors.green,
+                        ),
+                      ),
+                    if (contador > 0)
+                      TextButton(
+                        onPressed: details.onStepCancel,
+                        child: const Text('Anterior'),
+                      ),
+                  ],
+                );
+              },
+            ),
+            const SizedBox(height: 16),
+            AnimatedSwitcher(
+              duration: const Duration(milliseconds: 400),
+              child: Text(
+                contador == 0
+                    ? "REGISTRO 🟢"
+                    : contador == 1
+                    ? "EVIDENCIA 🟠"
+                    : "FINALIZADO 🔴",
+                key: ValueKey(contador),
+                style: const TextStyle(
+                  fontSize: 22,
+                  fontWeight: FontWeight.w600,
+                ),
               ),
             ),
           ],
@@ -60,12 +118,25 @@ class CicloVidaScreenState extends State<CicloVidaScreen> {
     );
   }
 
-  /// Se llama cuando queremos actualizar el estado del widget.
-  /// Provoca que build() se ejecute de nuevo.
-  void actualizarTexto() {
+  /// Avanza al siguiente paso y registra en consola el cambio de estado.
+  void avanzarPaso() {
     setState(() {
-      texto = "EVIDENCIA 🟠";
-      print("🟠 setState() -> Estado actualizado y build() será llamado");
+      if (contador < 2) {
+        contador++;
+        texto = contador == 1 ? "EVIDENCIA 🟠" : "FINALIZADO 🔴";
+        print("🟠 setState() -> Estado actualizado y build() será llamado");
+      }
+    });
+  }
+
+  /// Retrocede al paso anterior.
+  void retrocederPaso() {
+    setState(() {
+      if (contador > 0) {
+        contador--;
+        texto = contador == 0 ? "REGISTRO 🟢" : "EVIDENCIA 🟠";
+        print("🟠 setState() -> Estado actualizado y build() será llamado");
+      }
     });
   }
 

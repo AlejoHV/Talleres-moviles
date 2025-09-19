@@ -5,23 +5,23 @@ class AppTheme {
   static ThemeData get lightTheme {
     return ThemeData(
       colorScheme: ColorScheme.fromSeed(
-        seedColor: const Color.fromARGB(255, 20, 83, 165), // Color semilla
+        seedColor: const Color.fromARGB(255, 20, 83, 165),
         brightness: Brightness.light, // Tema claro
       ),
       useMaterial3: true,
       appBarTheme: const AppBarTheme(
         centerTitle: true,
         elevation: 0,
-        backgroundColor: Color.fromARGB(255, 32, 27, 105), // Color del AppBar
+        backgroundColor: Color.fromARGB(255, 32, 27, 105),
         titleTextStyle: TextStyle(
-          color: Colors.white, // Texto blanco para el AppBar
+          color: Colors.white,
           fontSize: 20,
           fontWeight: FontWeight.bold,
         ),
       ),
       drawerTheme: const DrawerThemeData(
         elevation: 0,
-        backgroundColor: Color.fromARGB(255, 189, 189, 189), // Fondo del Drawer
+        backgroundColor: Color.fromARGB(255, 224, 222, 222), // Fondo del Drawer
       ),
       textTheme: const TextTheme(
         bodyLarge: TextStyle(color: Colors.black87), // Estilo de texto
