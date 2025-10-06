@@ -9,6 +9,9 @@ class Piloto {
   Piloto(this.nombre, this.fotografiaUrl);
 }
 
+String _mensaje = "Cargando…";
+bool _hayError = false;
+
 class FutureView extends StatefulWidget {
   const FutureView({super.key});
 
@@ -21,14 +24,13 @@ class _FutureViewState extends State<FutureView> {
 
   @override
   // !inicializa el estado
-  // *llama a la funcion obtenerDatos() para cargar los datos al iniciar
   void initState() {
     super.initState();
     obtenerDatos(); // carga al iniciar
   }
 
   // !Funcion que simula una carga de datos
-  //*espera 5 segundos antes de cargar los datos, esto simula una carga de datos.
+  //*espera 2 segundos antes de cargar los datos, esto simula una carga de datos.
   Future<List<Piloto>> cargarPilotos() async {
     //future.delayed() simula una carga de datos
     await Future.delayed(const Duration(seconds: 2));
@@ -73,34 +75,57 @@ class _FutureViewState extends State<FutureView> {
         'Johann Zarco',
         'https://cdn-3.motorsport.com/images/mgl/2Gz8QOr0/s8/johann-zarco-team-lcr-honda.jpg',
       ),
+      //throw Exception("Simulación de error"); // Descomentar esta línea para simular un error
     ];
   }
 
   // !Funcion que obtiene los datos
-  // *carga los datos y los asigna a la lista _nombres
+  // *carga los datos y los asigna a la lista _pilotos
   Future<void> obtenerDatos() async {
-    final datos =
-        await cargarPilotos(); // await porque cargarNombres es una funcion asincrona
-
-    //!mounted es una propiedad de State que indica si el widget está montado en el árbol de widgets
-    //mounted es true si el widget está montado en el árbol de widgets
-    //mounted es false si el widget no está montado en el árbol de widgets
-
-    if (!mounted) return; //funciones de flecha
+    print("🔵 ANTES de la carga de pilotos"); // Antes de la carga
     setState(() {
-      // se encarga de redibujar la pantalla
-      _pilotos = datos;
+      _mensaje = "Cargando…";
+      _hayError = false;
     });
+    try {
+      print("🟡 DURANTE la carga de pilotos"); // Durante la carga
+      final datos = await cargarPilotos();
+      if (!mounted) return;
+      setState(() {
+        _pilotos = datos;
+        _mensaje = "¡Éxito!";
+        _hayError = false;
+      });
+      print("🟢 DESPUÉS de la carga de pilotos (éxito)"); // Después de la carga
+    } catch (e) {
+      setState(() {
+        _mensaje = "Error al cargar los pilotos";
+        _hayError = true;
+      });
+      print("🔴 DESPUÉS de la carga de pilotos (error)"); // Después de la carga
+    }
   }
 
   @override
   Widget build(BuildContext context) {
     return BaseView(
       title: 'Pilotos - MotoGP',
-      body:
-          //*si la lista esta vacia muestra un CircularProgressIndicator
-          _pilotos.isEmpty
-          ? const Center(child: CircularProgressIndicator())
+      body: _pilotos.isEmpty
+          ? Center(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  if (!_hayError) const CircularProgressIndicator(),
+                  const SizedBox(height: 16),
+                  Text(_mensaje, style: const TextStyle(fontSize: 18)),
+                  if (_hayError)
+                    ElevatedButton(
+                      onPressed: obtenerDatos,
+                      child: const Text("Reintentar"),
+                    ),
+                ],
+              ),
+            )
           : Padding(
               padding: const EdgeInsets.all(10.0),
               child: GridView.builder(
@@ -133,7 +158,7 @@ class _FutureViewState extends State<FutureView> {
                                 const Icon(Icons.person, size: 60),
                           ),
                         ),
-                        const SizedBox(height: 10),
+                        const SizedBox(height: 5),
                         Text(
                           piloto.nombre,
                           style: const TextStyle(
