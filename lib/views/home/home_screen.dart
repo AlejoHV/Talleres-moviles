@@ -47,12 +47,16 @@ class HomeScreen extends StatelessWidget {
                     ],
                   ),
                   const SizedBox(height: 24),
-                  const Image(
-                    image: NetworkImage(
-                      'https://static.vecteezy.com/system/resources/thumbnails/013/529/416/small_2x/motorcycle-logo-design-and-modern-superbike-silhouette-concept-template-vector.jpg',
+                  const ClipRRect(
+                    borderRadius: BorderRadius.all(Radius.circular(16)),
+                    child: Image(
+                      image: NetworkImage(
+                        'https://static.vecteezy.com/system/resources/thumbnails/013/529/416/small_2x/motorcycle-logo-design-and-modern-superbike-silhouette-concept-template-vector.jpg',
+                      ),
+                      width: 180,
+                      height: 180,
+                      fit: BoxFit.cover,
                     ),
-                    width: 180,
-                    height: 180,
                   ),
                   const SizedBox(height: 24),
                   const Text(

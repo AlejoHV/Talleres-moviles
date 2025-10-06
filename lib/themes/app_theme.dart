@@ -21,7 +21,7 @@ class AppTheme {
       ),
       drawerTheme: const DrawerThemeData(
         elevation: 0,
-        backgroundColor: Color.fromARGB(255, 224, 222, 222), // Fondo del Drawer
+        backgroundColor: Color.fromARGB(255, 255, 255, 255), // Fondo del Drawer
       ),
       textTheme: const TextTheme(
         bodyLarge: TextStyle(color: Colors.black87), // Estilo de texto

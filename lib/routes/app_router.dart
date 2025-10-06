@@ -1,9 +1,11 @@
-import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:talleresmoviles/views/ciclo_vida/ciclo_vida_screen.dart';
+import 'package:talleresmoviles/views/cronometro/timer_screen.dart';
+import 'package:talleresmoviles/views/isolate/isolate_screen.dart';
 import 'package:talleresmoviles/views/paso_parametros/detalle_screen.dart';
 import 'package:talleresmoviles/views/paso_parametros/paso_parametros_screen.dart';
 import 'package:talleresmoviles/views/tabbar_widget/vehiculos_screen.dart';
+import 'package:talleresmoviles/views/future/future_screen.dart';
 
 import '../views/home/home_screen.dart';
 
@@ -43,6 +45,24 @@ final GoRouter appRouter = GoRouter(
       path: '/vehiculos',
       name: 'vehiculos',
       builder: (context, state) => const VehiculosScreen(),
+    ),
+    //!Ruta para el Future
+    GoRoute(
+      path: '/future',
+      name: 'future',
+      builder: (context, state) => const FutureView(),
+    ),
+    //!Ruta para el Cronómetro
+    GoRoute(
+      path: '/cronometro',
+      name: 'cronometro',
+      builder: (context, state) => const TimerScreen(),
+    ),
+    // !Ruta para el Isolate
+    GoRoute(
+      path: '/isolate',
+      name: 'isolate',
+      builder: (context, state) => const IsolateView(),
     ),
   ],
 );
