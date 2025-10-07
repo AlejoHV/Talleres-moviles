@@ -51,3 +51,101 @@ Entre los widgets usados se encuentran GridView, TabBar y Stepper, la razón de 
 <img width="309" height="620" alt="image" src="https://github.com/user-attachments/assets/10675e38-a040-4ba2-85ff-1fd0cbeeb8a1" />
 <img width="309" height="620" alt="image" src="https://github.com/user-attachments/assets/e8d238ef-5842-45f2-942b-4672e9268073" />
 
+# Taller 3 - Segundo plano, asincronía y servicios en Flutter
+
+### 📘 Cuándo usar cada técnica
+
+#### 🔹 **Future / async / await**
+
+* **Uso recomendado:** Cuando necesitas realizar tareas **asíncronas no bloqueantes** que dependen del tiempo o de respuestas externas (como llamadas a API, lectura de archivos o consultas simuladas).
+* **Ejemplo en el proyecto:** Se usó un `Future.delayed()` de 2–3 segundos para simular la carga de datos desde un servicio.
+* **Ventaja:** Permite mantener la **UI fluida** mientras esperas el resultado.
+* **Estados mostrados:**
+
+  * `Cargando...` mientras el Future está en ejecución.
+  * `Éxito` cuando los datos se cargan correctamente.
+  * `Error` cuando ocurre una falla simulada.
+* **Ejecución controlada:** Con `async/await`, se imprime en consola el orden de ejecución antes, durante y después del proceso, demostrando la asincronía controlada.
+
+---
+
+#### 🔹 **Timer**
+
+* **Uso recomendado:** Cuando necesitas ejecutar código **de manera periódica o temporizada**, como cronómetros, animaciones o tareas repetitivas.
+* **Ejemplo en el proyecto:** Se implementó un **cronómetro** con botones para:
+
+  * `Iniciar`
+  * `Pausar`
+  * `Reanudar`
+  * `Reiniciar`
+* **Frecuencia de actualización:** Cada 1 segundo (o cada 100 ms si se requieren milisegundos).
+* **Buenas prácticas:**
+
+  * Cancelar el `Timer` al pausar o al salir de la vista para **liberar recursos**.
+  * Usar `setState` para reflejar el cambio del tiempo en la interfaz.
+
+---
+
+#### 🔹 **Isolate**
+
+* **Uso recomendado:** Para ejecutar **tareas pesadas o de alto consumo de CPU** sin bloquear el hilo principal de la interfaz.
+* **Ejemplo en el proyecto:** Se implementó un cálculo intensivo (sumas o promedios grandes) que se ejecuta en un `Isolate` usando `Isolate.spawn`.
+* **Comunicación:** Se envía y recibe información a través de **mensajes** entre el isolate y la UI.
+* **Ventaja:** La aplicación sigue siendo **responsiva**, mostrando los resultados finales en pantalla junto con los tiempos de ejecución.
+* **Casos típicos:** Procesamiento de datos, cálculos matemáticos, generación de informes o imágenes.
+
+---
+
+### 🖼️ Diagramas y flujos de pantallas
+
+#### 📱 Lista de pantallas principales:
+
+1. **Menú principal:**
+
+   * Permite navegar entre las tres secciones: *Future*, *Cronómetro* y *Isolate*.
+
+2. **Pantalla de Future (Asincronía):**
+
+   * Muestra los estados `Cargando`, `Éxito` o `Error`.
+   * Incluye impresión en consola del orden de ejecución.
+
+3. **Pantalla de Cronómetro (Timer):**
+
+   * Botones: Iniciar / Pausar / Reanudar / Reiniciar.
+   * Muestra el tiempo transcurrido en un `Text` grande tipo marcador.
+
+4. **Pantalla de Proceso Pesado (Isolate):**
+
+   * Botón para ejecutar el cálculo pesado.
+   * Muestra el tiempo de inicio, los resultados del cálculo y los tiempos de respuesta.
+
+---
+
+### 🔄 Flujo general del proyecto
+
+```
+[Menú Principal]
+      │
+      ├──> [Future: carga simulada con async/await]
+      │          ↓
+      │       (Estados: Cargando → Éxito/Error)
+      │
+      ├──> [Cronómetro: Timer]
+      │          ↓
+      │   (Iniciar ↔ Pausar ↔ Reanudar ↔ Reiniciar)
+      │
+      └──> [Isolate: proceso pesado]
+                 ↓
+        (Ejecución en hilo separado)
+        (Resultado enviado a la UI)
+```
+
+# Capturas
+<img width="300" height="620" alt="image" src="https://github.com/user-attachments/assets/feedbe5e-deca-4ef4-8cfb-a175713202b9" />
+<img width="300" height="620" alt="image" src="https://github.com/user-attachments/assets/54610357-9e61-40d7-8c68-fda38dd03837" />
+<img width="300" height="620" alt="image" src="https://github.com/user-attachments/assets/b4970dd4-b586-4686-aae9-62d327108537" />
+<img width="300" height="620" alt="image" src="https://github.com/user-attachments/assets/3307cacf-0d11-4d2c-b910-94ff6e5d63a1" />
+<img width="300" height="620" alt="image" src="https://github.com/user-attachments/assets/134e118e-2e42-4f58-94ca-96fe80728d51" />
+<img width="300" height="620" alt="image" src="https://github.com/user-attachments/assets/43a3b6f7-9adf-45b9-905b-782f8aeab5ea" />
+
+
