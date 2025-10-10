@@ -45,7 +45,7 @@ class MarvelService {
   // Credenciales personales de la API de Marvel
   static const String _baseUrl = 'https://gateway.marvel.com/v1/public';
   static const String _publicKey = '293a13e1a3fccdf7dc0afbf70c58942b';
-  static const String _privateKey = '32988552ea1be74ca7aceb1d593afa797d9b26142';
+  static const String _privateKey = '32988552ea1be74ca7aceb1d593afa797d9b2614';
   static String _ts = DateTime.now().millisecondsSinceEpoch.toString();
   static String _hash = generateMd5(_ts + _privateKey + _publicKey);
 
