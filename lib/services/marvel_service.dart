@@ -42,10 +42,10 @@ class MarvelCharacter {
 enum MarvelStatus { loading, success, error }
 
 class MarvelService {
-  // Reemplaza estos valores con tus credenciales de la API de Marvel
+  // Credenciales personales de la API de Marvel
   static const String _baseUrl = 'https://gateway.marvel.com/v1/public';
   static const String _publicKey = '293a13e1a3fccdf7dc0afbf70c58942b';
-  static const String _privateKey = '32988552ea1be74ca7aceb1d593afa797d9b2614';
+  static const String _privateKey = '32988552ea1be74ca7aceb1d593afa797d9b26142';
   static String _ts = DateTime.now().millisecondsSinceEpoch.toString();
   static String _hash = generateMd5(_ts + _privateKey + _publicKey);
 
@@ -59,21 +59,25 @@ class MarvelService {
     final url =
         '$_baseUrl/characters?ts=$_ts&apikey=$_publicKey&hash=$_hash&limit=20';
 
+    print('🔵 Cargando personajes de Marvel...');
     try {
       final response = await http.get(Uri.parse(url));
       if (response.statusCode == 200) {
         final data = json.decode(response.body);
         final results = data['data']['results'] as List;
         status = MarvelStatus.success;
+        print('🟢 Personajes cargados con éxito.');
         return results.map((json) => MarvelCharacter.fromJson(json)).toList();
       } else {
         status = MarvelStatus.error;
         errorMessage = 'Error: ${response.statusCode}';
+        print('🔴 Error al cargar personajes: $errorMessage');
         return [];
       }
     } catch (e) {
       status = MarvelStatus.error;
       errorMessage = 'Excepción: $e';
+      print('🔴 Excepción capturada: $e');
       return [];
     }
   }
@@ -85,6 +89,7 @@ class MarvelService {
     final url =
         '$_baseUrl/characters/$characterId?ts=$_ts&apikey=$_publicKey&hash=$_hash';
 
+    print('🔵 Cargando detalles del personaje de Marvel...');
     try {
       final response = await http.get(Uri.parse(url));
       if (response.statusCode == 200) {
@@ -92,6 +97,7 @@ class MarvelService {
         final results = data['data']['results'] as List;
         if (results.isNotEmpty) {
           status = MarvelStatus.success;
+          print('🟢 Detalles cargados con éxito.');
           return MarvelCharacter.fromJson(results[0]);
         } else {
           status = MarvelStatus.error;
@@ -101,11 +107,13 @@ class MarvelService {
       } else {
         status = MarvelStatus.error;
         errorMessage = 'Error: ${response.statusCode}';
+        print('🔴 Error al cargar personajes: $errorMessage');
         return null;
       }
     } catch (e) {
       status = MarvelStatus.error;
       errorMessage = 'Excepción: $e';
+      print('🔴 Excepción capturada: $e');
       return null;
     }
   }

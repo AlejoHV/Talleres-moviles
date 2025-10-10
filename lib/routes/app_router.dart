@@ -1,6 +1,5 @@
 import 'package:go_router/go_router.dart';
 import 'package:talleresmoviles/services/marvel_service.dart';
-//import 'package:talleresmoviles/services/marvel_service.dart';
 import 'package:talleresmoviles/views/ciclo_vida/ciclo_vida_screen.dart';
 import 'package:talleresmoviles/views/cronometro/timer_screen.dart';
 import 'package:talleresmoviles/views/isolate/isolate_screen.dart';

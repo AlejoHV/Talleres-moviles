@@ -26,12 +26,16 @@ class _PersonajesListScreenState extends State<PersonajesListScreen> {
       _status = MarvelStatus.loading;
       _error = '';
     });
+    print('🔵 Cargando personajes...');
     final personajes = await _service.getCharacters();
     setState(() {
       _status = _service.status;
       _personajes = personajes;
       _error = _service.errorMessage;
     });
+    if (_status == MarvelStatus.error) {
+      print('Error en la UI: $_error');
+    }
   }
 
   @override
@@ -41,7 +45,16 @@ class _PersonajesListScreenState extends State<PersonajesListScreen> {
       body: Builder(
         builder: (context) {
           if (_status == MarvelStatus.loading) {
-            return const Center(child: CircularProgressIndicator());
+            return const Center(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  CircularProgressIndicator(),
+                  SizedBox(height: 16),
+                  Text('Cargando personajes...'),
+                ],
+              ),
+            );
           }
           if (_status == MarvelStatus.error) {
             return Center(
@@ -102,6 +115,8 @@ class _PersonajesListScreenState extends State<PersonajesListScreen> {
                       fontSize: 18,
                     ),
                   ),
+                  onTap: () =>
+                      context.push('/detalle_personaje', extra: personaje),
                   subtitle: personaje.description.isNotEmpty
                       ? Padding(
                           padding: const EdgeInsets.only(top: 4.0),
@@ -124,8 +139,6 @@ class _PersonajesListScreenState extends State<PersonajesListScreen> {
                     size: 20,
                     color: Colors.grey,
                   ),
-                  onTap: () =>
-                      context.push('/detalle_personaje', extra: personaje),
                 ),
               );
             },
