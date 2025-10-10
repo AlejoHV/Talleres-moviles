@@ -13,7 +13,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp.router(
       theme: AppTheme.lightTheme,
-      title: 'TALLER 3',
+      title: 'TALLER 4',
       routerConfig: appRouter,
     );
   }

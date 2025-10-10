@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+//import 'package:talleresmoviles/views/marvel/personajes_list_screen.dart';
 
 class CustomDrawer extends StatelessWidget {
   const CustomDrawer({super.key});
@@ -81,6 +82,14 @@ class CustomDrawer extends StatelessWidget {
             title: const Text('Isolate'),
             onTap: () {
               context.go('/isolate');
+            },
+          ),
+          //!MARVEL
+          ListTile(
+            leading: const Icon(Icons.person),
+            title: const Text('API Marvel'),
+            onTap: () {
+              context.push('/marvel');
             },
           ),
         ],

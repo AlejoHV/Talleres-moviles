@@ -1,4 +1,5 @@
 import 'package:go_router/go_router.dart';
+import 'package:talleresmoviles/services/marvel_service.dart';
 import 'package:talleresmoviles/views/ciclo_vida/ciclo_vida_screen.dart';
 import 'package:talleresmoviles/views/cronometro/timer_screen.dart';
 import 'package:talleresmoviles/views/isolate/isolate_screen.dart';
@@ -6,6 +7,8 @@ import 'package:talleresmoviles/views/paso_parametros/detalle_screen.dart';
 import 'package:talleresmoviles/views/paso_parametros/paso_parametros_screen.dart';
 import 'package:talleresmoviles/views/tabbar_widget/vehiculos_screen.dart';
 import 'package:talleresmoviles/views/future/future_screen.dart';
+import 'package:talleresmoviles/views/marvel/personajes_detail_screen.dart';
+import 'package:talleresmoviles/views/marvel/personajes_list_screen.dart';
 
 import '../views/home/home_screen.dart';
 
@@ -63,6 +66,21 @@ final GoRouter appRouter = GoRouter(
       path: '/isolate',
       name: 'isolate',
       builder: (context, state) => const IsolateView(),
+    ),
+
+    // !Ruta para el API REST
+    GoRoute(
+      path: '/marvel',
+      name: 'marvel',
+      builder: (context, state) => const PersonajesListScreen(),
+    ),
+    GoRoute(
+      path: '/detalle_personaje',
+      name: 'detalle_personaje',
+      builder: (context, state) {
+        final personaje = state.extra as MarvelCharacter;
+        return PersonajesDetailScreen(personaje: personaje);
+      },
     ),
   ],
 );
