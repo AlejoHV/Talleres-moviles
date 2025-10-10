@@ -148,4 +148,79 @@ Entre los widgets usados se encuentran GridView, TabBar y Stepper, la razón de 
 <img width="300" height="620" alt="image" src="https://github.com/user-attachments/assets/134e118e-2e42-4f58-94ca-96fe80728d51" />
 <img width="300" height="620" alt="image" src="https://github.com/user-attachments/assets/43a3b6f7-9adf-45b9-905b-782f8aeab5ea" />
 
+# Taller 4 - Peticiones HTTP y Consumo de API Pública en Flutter
+
+API Utilizada: Marvel Developer API
+- 
+### - Endpoint Principal: 
+`` GET https://gateway.marvel.com/v1/public/characters ``
+### - Autenticación Requerida:
+
+- Parámetros de query: ts, apikey, hash
+- Sistema de autenticación HMAC-MD5
+
+### - Ejemplo de Respuesta JSON
+```
+{
+  "code": 200,
+  "status": "Ok",
+  "data": {
+    "offset": 0,
+    "limit": 20,
+    "total": 1493,
+    "count": 20,
+    "results": [
+      {
+        "id": 1011334,
+        "name": "3-D Man",
+        "description": "",
+        "modified": "2014-04-29T14:18:17-0400",
+        "thumbnail": {
+          "path": "http://i.annihil.us/u/prod/marvel/i/mg/c/e0/535fecbbb9784",
+          "extension": "jpg"
+        },
+        "resourceURI": "http://gateway.marvel.com/v1/public/characters/1011334",
+        "comics": {
+          "available": 12,
+          "collectionURI": "http://gateway.marvel.com/v1/public/characters/1011334/comics",
+          "items": [
+            {
+              "resourceURI": "http://gateway.marvel.com/v1/public/comics/21366",
+              "name": "Avengers: The Initiative (2007) #14"
+            }
+          ]
+        }
+      }
+    ]
+  }
+}
+```
+Arquitectura
+- 
+```
+lib/
+  │
+  ├── services/
+  │   └── marvel_service.dart
+  ├── views/
+  │   └── marvel/
+  │       ├── personajes_list_screen.dart
+  │       └── personajes_detail_screen.dart
+
+```
+Rutas definidas
+-
+<img width="524" height="275" alt="image" src="https://github.com/user-attachments/assets/094f1ae2-b44a-4634-8d1c-a60841665b5c" />
+
+Capturas
+-
+<img width="320" height="650" alt="image" src="https://github.com/user-attachments/assets/26d84008-b828-484a-b345-d6090e21a9d6" />
+<img width="320" height="650" alt="image" src="https://github.com/user-attachments/assets/8afa2443-6c5a-46ad-bd04-70723baa779b" />
+<img width="320" height="650" alt="image" src="https://github.com/user-attachments/assets/78007b6e-6af4-448f-b568-d5248d5d18a2" />
+<img width="320" height="650" alt="image" src="https://github.com/user-attachments/assets/2f94c7a5-79b6-46df-af5b-658e05c9c36e" />
+<img width="320" height="650" alt="image" src="https://github.com/user-attachments/assets/caa62e18-7424-47a2-a52c-dd64a4afa700" />
+<img width="320" height="650" alt="image" src="https://github.com/user-attachments/assets/a9b06d79-34ac-4cc5-aecf-03b7c4ffc386" />
+<img width="320" height="650" alt="image" src="https://github.com/user-attachments/assets/fd3493f8-b03d-47a5-8d3c-1bc7076fdf77" />
+<img width="320" height="650" alt="image" src="https://github.com/user-attachments/assets/99b338b5-909e-4b9d-8a75-d4e1e3a156f3" />
+<img width="320" height="650" alt="image" src="https://github.com/user-attachments/assets/600e4db5-a0cd-4f51-be63-a46bf2e447cb" />
 
