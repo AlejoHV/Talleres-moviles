@@ -224,3 +224,136 @@ Capturas
 <img width="320" height="650" alt="image" src="https://github.com/user-attachments/assets/99b338b5-909e-4b9d-8a75-d4e1e3a156f3" />
 <img width="320" height="650" alt="image" src="https://github.com/user-attachments/assets/600e4db5-a0cd-4f51-be63-a46bf2e447cb" />
 
+# Taller 1 - Distribución de APK con Firebase App Distribution
+
+Descripción Flujo de Distribución
+-
+Generar APK → Firebase App Distribution → Notificar Testers → Instalación → Feedback → Actualización
+
+```
+1. Generar APK: Compilación de la aplicación en modo release
+2. App Distribution: Subida a Firebase para distribución controlada
+3. Testers: Invitación a usuarios específicos para testing
+4. Instalación: Descarga e instalación en dispositivos Android
+5. Actualización: Ciclo iterativo de mejoras y nuevas versiones
+```
+Publicación
+-
+### Pasos para Publicar una Nueva Versión
+
+#### 1. Preparación del Código
+```
+Actualizar versionado en android/app/build.gradle
+versionCode = X  # Incrementar numéricamente (1 en 1)
+versionName = "X.X.X"  # Seguir versionado semántico (1.0.0)
+```
+#### 2. Generación del APK
+```
+# Limpiar y construir
+flutter clean
+flutter pub get
+flutter build apk
+```
+#### 3. Distribución en Firebase
+```
+# El APK se genera en:
+# build/app/outputs/flutter-apk/app-release.apk
+```
+#### 4. Subir a Firebase Console
+```
+  1. Acceder a Firebase Console
+  2. Ir a App Distribution → Releases
+  3. Subir APK y seleccionar archivo generado
+  4. Asignar al grupo QA_Clase
+  5. Agregar Release Notes descriptivas
+```
+#### 5. Notificación a Testers
+```
+Los testers reciben email de invitación automáticamente
+Pueden instalar directamente desde el enlace
+```
+
+Versionado
+-
+## Esquema de Versionado
+
+He utilizado el versionado semántico: versionName.versionCode
+
+Ejemplo: 1.0.1+2 donde:
+- 1.0.0: versionName (visible al usuario)
+- +1: versionCode (incremental interno)
+
+## Historial de Versiones
+| Versión |	Version Code |	Cambios Principales |
+| :--- | :---: | ---: |
+|1.0.0 |1 |	Release inicial - Estructura base |
+|1.0.1 |2 |	Rediseño menú principal + mejoras UI|
+
+## Configuración en build.gradle
+```
+android {
+    defaultConfig {
+        applicationId "con.example.talleresmoviles"
+        versionCode 2      // Incrementar por cada build
+        versionName "1.0.1" // Versión semántica
+    }
+}
+```
+## Release Notes
+### Formato Estándar
+```
+# TÍTULO DESCRIPTIVO - [App Name] v[Versión]
+
+## INFORMACIÓN DE LA VERSIÓN
+- Versión: [X.X.X]
+- Fecha: [Fecha distribución]
+- Tipo: [Release inicial/Bug fix/Nueva feature]
+
+## CAMBIOS PRINCIPALES
+### MEJORAS IMPLEMENTADAS
+- [ ] [Descripción específica del cambio]
+- [ ] [Beneficio para el usuario]
+
+### CORRECCIONES
+- [ ] [Problema resuelto]
+
+## INSTRUCCIONES PARA TESTERS
+1. [Pasos específicos para probar]
+2. [Comportamiento esperado]
+
+## CONTACTO
+- Desarrollador: [Nombre]
+- Reportar issues: [Email]
+```
+### Ejemplo básico de la versión 1.0.1
+```
+# 🎨 ACTUALIZACIÓN DE INTERFAZ - Talleres Móviles v1.0.1
+
+## 📋 INFORMACIÓN
+- Versión 1.0.1 → 1.0.0
+- Fecha 20/10/2025
+- Tipo Mejora de interfaz y experiencia de usuario
+
+## 🔄 CAMBIOS PRINCIPALES
+### 🎯 MEJORAS VISUALES
+- Rediseño del Menú Principal
+- Título "Menú Principal" agregado
+- Subtítulo "Navegación de la App"
+- Mejor jerarquía visual
+
+## 🧪 PARA TESTERS
+1. Verificar nuevo diseño del menú
+2. Confirmar navegación funcional
+3. Validar usabilidad mejorada
+```
+Capturas
+-
+<img width="920" height="533" alt="image" src="https://github.com/user-attachments/assets/337f7886-0fd9-4735-ac40-49e109de9765" />
+<img width="929" height="340" alt="image" src="https://github.com/user-attachments/assets/0d062717-74d7-4e07-80fd-7b5738ba935f" />
+<img width="390" height="800" alt="image" src="https://github.com/user-attachments/assets/de78a044-b103-4a54-97b1-05a14444da52" />
+<img width="390" height="800" alt="image" src="https://github.com/user-attachments/assets/faf93c32-0304-4e0d-9231-8cc4ddc274b6" />
+<img width="452" height="1004" alt="image" src="https://github.com/user-attachments/assets/18bfc170-2beb-4fb9-b58b-eb68ff6c75db" />
+<img width="452" height="1004" alt="image" src="https://github.com/user-attachments/assets/d0eb2e1b-f778-46a3-af5f-4a19de4a5157" />
+
+
+
