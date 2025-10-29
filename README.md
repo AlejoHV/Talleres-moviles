@@ -352,8 +352,60 @@ Capturas
 <img width="929" height="340" alt="image" src="https://github.com/user-attachments/assets/0d062717-74d7-4e07-80fd-7b5738ba935f" />
 <img width="390" height="800" alt="image" src="https://github.com/user-attachments/assets/de78a044-b103-4a54-97b1-05a14444da52" />
 <img width="390" height="800" alt="image" src="https://github.com/user-attachments/assets/faf93c32-0304-4e0d-9231-8cc4ddc274b6" />
-<img width="452" height="1004" alt="image" src="https://github.com/user-attachments/assets/18bfc170-2beb-4fb9-b58b-eb68ff6c75db" />
-<img width="452" height="1004" alt="image" src="https://github.com/user-attachments/assets/d0eb2e1b-f778-46a3-af5f-4a19de4a5157" />
+<img width="390" height="1004" alt="image" src="https://github.com/user-attachments/assets/18bfc170-2beb-4fb9-b58b-eb68ff6c75db" />
+<img width="390" height="1004" alt="image" src="https://github.com/user-attachments/assets/d0eb2e1b-f778-46a3-af5f-4a19de4a5157" />
 
 
+# Taller 2 - autenticación JWT
+
+## Módulo de Autenticación JWT
+### Objetivo
+- Manejar estados de carga, éxito y error mediante servicios, repositorios y notifiers.
+- Persistir datos sensibles (tokens) en `flutter_secure_storage` y no sensibles (nombre, correo, tema, idioma) en `shared_preferences`.
+- Exponer una vista de evidencia que muestre la información almacenada localmente y permita cerrar sesión.
+### Implementación principal
+- **Servicios HTTP:** `auth_api_service` consume los endpoints `/api/login` y `/api/users` del API de Parqueadero (Swagger), encapsulando manejo de errores y parseo de respuestas.
+- **Repositorio:** `auth_repository` orquesta autenticación, persistencia en almacenamiento seguro y lectura/escritura de preferencias.
+- **Gestión de estado:** `auth_notifier` y `auth_state` controlan los estados `loading`, `authenticated`, `error` y `idle`, notificando a las pantallas.
+- **Almacenamiento local:**
+ - `flutter_secure_storage`: `access_token`, `token_type`.
+ - `shared_preferences`: nombre, correo, apellido, tema, idioma.
+- **Vista de evidencia:** `evidence_screen` muestra los datos persistidos, indica si existe token y expone botón de cierre de sesión que limpia ambos almacenamientos.
+### Flujo resumido
+1. El usuario registra o inicia sesión desde el formulario; las credenciales viajan como JSON al backend de la API.
+2. El backend responde con JWT; el repositorio guarda tokens y datos en los almacenamientos correspondientes.
+3. `auth_notifier` actualiza el estado a `authenticated`, permitiendo navegar al resto de la app.
+4. Desde el menú se accede a la pantalla de evidencia para consultar la información guardada o cerrar sesión.
+### Evidencias
+- **Solicitud exitosa de login:** captura mostrando respuesta 200 con token JWT.
+- **Vista Evidencia de Sesión:** pantalla que lista nombre, correo, tema, idioma y estado del token.
+- **Limpieza de datos:** mensaje "Datos locales eliminados" tras pulsar el botón de cerrar sesión.
+---
+## Capturas
+  - Clase AuthApiService
+
+<img width="900" height="500" alt="image" src="https://github.com/user-attachments/assets/601939d8-8a18-49b8-8445-7f7b06533004" />
+<img width="900" height="500" alt="image" src="https://github.com/user-attachments/assets/7dedd2ac-30cc-4483-86c0-6a7f19bca7e3" />
+
+  - Clase AuthRepository
+
+<img width="900" height="500" alt="image" src="https://github.com/user-attachments/assets/926e33a5-f2be-4946-97c3-d021c5b8ad1f" />
+
+  - Clase AuthLocalStorage
+
+<img width="900" height="600" alt="image" src="https://github.com/user-attachments/assets/380ec52c-60b2-4f15-90cc-d56b57f5fbd9" />
+
+  - Pantalla de Login y Registro de usuarios (Mensajes y estatus de error: Error de validación, Credenciales invalidas y requisitos mínimos de contraseña)
+
+<img width="360" height="800" alt="image" src="https://github.com/user-attachments/assets/b15f7083-db06-4c38-8bfc-dafe34af4428" />
+<img width="360" height="800" alt="image" src="https://github.com/user-attachments/assets/5554c1af-55cf-49fd-8661-6600b6077693" />
+<img width="360" height="800" alt="image" src="https://github.com/user-attachments/assets/51b430b3-771b-46d4-8785-94d7d9554528" />
+<img width="360" height="800" alt="image" src="https://github.com/user-attachments/assets/815b3490-cdcf-491e-968b-5af8e1a7ea74" />
+<img width="360" height="800" alt="image" src="https://github.com/user-attachments/assets/f754220a-63ff-4d91-abfc-f76a29bd01ba" />
+
+  - Pantalla de Evidencia antes y despues de cerrar seción   
+
+<img width="360" height="800" alt="image" src="https://github.com/user-attachments/assets/83f00403-e90e-4899-8c4f-9009ac4156ba" />
+<img width="360" height="800" alt="image" src="https://github.com/user-attachments/assets/9f2049ac-8c6f-4f77-90bc-88da365845a8" />
+<img width="360" height="800" alt="image" src="https://github.com/user-attachments/assets/f5bab71f-67d8-440f-a4fc-dcc116fb9e7b" />
 
