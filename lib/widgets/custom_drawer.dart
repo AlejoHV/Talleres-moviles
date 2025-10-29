@@ -141,6 +141,14 @@ class CustomDrawer extends StatelessWidget {
               route: '/isolate',
             ),
 
+            //!AUTENTICACIÓN
+            _buildMenuItem(
+              context: context,
+              icon: Icons.shield_rounded,
+              title: 'Evidencia de sesión',
+              route: '/auth/evidence',
+            ),
+
             //!MARVEL
             _buildMenuItem(
               context: context,
