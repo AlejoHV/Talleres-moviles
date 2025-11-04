@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-
+import 'package:firebase_core/firebase_core.dart';
+import 'package:talleresmoviles/firebase_options.dart';
 import 'auth/notifiers/auth_notifier.dart';
 import 'auth/repositories/auth_repository.dart';
 import 'auth/services/auth_api_service.dart';
@@ -12,6 +13,8 @@ import 'themes/app_theme.dart';
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   final sharedPreferences = await SharedPreferences.getInstance();
+
+  await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
 
   runApp(MyApp(sharedPreferences: sharedPreferences));
 }
@@ -35,7 +38,9 @@ class _MyAppState extends State<MyApp> {
     super.initState();
     _authRepository = AuthRepository(
       apiService: AuthApiService(),
-      localStorage: AuthLocalStorage(sharedPreferences: widget.sharedPreferences),
+      localStorage: AuthLocalStorage(
+        sharedPreferences: widget.sharedPreferences,
+      ),
     );
     _authNotifier = AuthNotifier(repository: _authRepository);
     _authNotifier.initialize();
@@ -54,7 +59,7 @@ class _MyAppState extends State<MyApp> {
       value: _authNotifier,
       child: MaterialApp.router(
         theme: AppTheme.lightTheme,
-        title: 'TALLER 1',
+        title: 'TALLER 3',
         routerConfig: _routerWrapper.router,
       ),
     );
