@@ -14,7 +14,7 @@ class UniversidadFbListView extends StatelessWidget {
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Universidades Firebase'),
+        title: const Text('Listado de Universidades'),
         actions: [
           IconButton(
             icon: const Icon(Icons.info_outline),

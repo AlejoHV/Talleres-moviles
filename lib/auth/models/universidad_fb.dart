@@ -32,7 +32,7 @@ class UniversidadFb {
       'nombre': nombre,
       'direccion': direccion,
       'telefono': telefono,
-      'paginaWeb': paginaWeb,
+      'pagina_web': paginaWeb,
     };
   }
 }

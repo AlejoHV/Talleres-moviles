@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-
+import 'package:url_launcher/url_launcher.dart';
 import '../../auth/models/universidad_fb.dart';
 import '../../services/universidad_service.dart';
 
@@ -21,6 +21,19 @@ class _UniversidadFbFormViewState extends State<UniversidadFbFormView> {
   final _telefonoController = TextEditingController();
   final _paginaWebController = TextEditingController();
   bool _camposInicializados = false;
+
+  Future<void> _launchURL(String url) async {
+    final uri = Uri.tryParse(url);
+    if (uri != null && await canLaunchUrl(uri)) {
+      await launchUrl(uri);
+    } else {
+      if (mounted) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(content: Text('No se pudo abrir la URL')),
+        );
+      }
+    }
+  }
 
   Future<void> _guardar({String? id}) async {
     if (_formKey.currentState!.validate()) {
@@ -97,7 +110,7 @@ class _UniversidadFbFormViewState extends State<UniversidadFbFormView> {
 
     return Scaffold(
       appBar: AppBar(
-        title: Text(esNuevo ? 'Crear Universidad' : 'Editar Universidad'),
+        title: Text(esNuevo ? 'Nueva Universidad' : 'Editar Universidad'),
       ),
       body: esNuevo
           ? _buildFormulario(context, id: null)
@@ -237,19 +250,25 @@ class _UniversidadFbFormViewState extends State<UniversidadFbFormView> {
                         TextFormField(
                           controller: _nitController,
                           decoration: InputDecoration(
-                            labelText: 'Nit',
-                            hintText: 'Ingresa el nit de la universidad',
+                            labelText: 'NIT',
+                            hintText: 'Ingrese el NIT de la universidad',
+                            prefixIcon: const Icon(Icons.numbers, size: 20),
                             border: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(8),
+                              borderRadius: BorderRadius.circular(12),
+                            ),
+                            contentPadding: const EdgeInsets.symmetric(
+                              horizontal: 16,
+                              vertical: 14,
                             ),
                           ),
+                          style: const TextStyle(fontSize: 15),
                           textCapitalization: TextCapitalization.words,
                           validator: (value) {
                             if (value == null || value.trim().isEmpty) {
-                              return 'El nit es requerido';
+                              return 'El NIT es requerido';
                             }
                             if (value.trim().length < 3) {
-                              return 'El nit debe tener al menos 3 caracteres';
+                              return 'El NIT debe tener al menos 3 caracteres';
                             }
                             return null;
                           },
@@ -259,11 +278,17 @@ class _UniversidadFbFormViewState extends State<UniversidadFbFormView> {
                           controller: _nombreController,
                           decoration: InputDecoration(
                             labelText: 'Nombre',
-                            hintText: 'Ingresa el nombre de la universidad',
+                            hintText: 'Ingrese el nombre de la universidad',
+                            prefixIcon: const Icon(Icons.school, size: 20),
                             border: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(8),
+                              borderRadius: BorderRadius.circular(12),
+                            ),
+                            contentPadding: const EdgeInsets.symmetric(
+                              horizontal: 16,
+                              vertical: 14,
                             ),
                           ),
+                          style: const TextStyle(fontSize: 15),
                           textCapitalization: TextCapitalization.words,
                           validator: (value) {
                             if (value == null || value.trim().isEmpty) {
@@ -280,13 +305,19 @@ class _UniversidadFbFormViewState extends State<UniversidadFbFormView> {
                           controller: _direccionController,
                           decoration: InputDecoration(
                             labelText: 'Dirección',
-                            hintText: 'Ingresa la dirección de la universidad',
+                            hintText: 'Ingrese la dirección de la universidad',
+                            prefixIcon: const Icon(Icons.location_on, size: 20),
                             border: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(8),
+                              borderRadius: BorderRadius.circular(12),
+                            ),
+                            contentPadding: const EdgeInsets.symmetric(
+                              horizontal: 16,
+                              vertical: 14,
                             ),
                             alignLabelWithHint: true,
                           ),
-                          maxLines: 3,
+                          style: const TextStyle(fontSize: 15),
+                          maxLines: 2,
                           textCapitalization: TextCapitalization.sentences,
                           validator: (value) {
                             if (value == null || value.trim().isEmpty) {
@@ -302,19 +333,25 @@ class _UniversidadFbFormViewState extends State<UniversidadFbFormView> {
                         TextFormField(
                           controller: _telefonoController,
                           decoration: InputDecoration(
-                            labelText: 'Telefono',
-                            hintText: 'Ingresa el telefono de la universidad',
+                            labelText: 'Teléfono',
+                            hintText: 'Ingrese el teléfono de la universidad',
+                            prefixIcon: const Icon(Icons.phone, size: 20),
                             border: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(8),
+                              borderRadius: BorderRadius.circular(12),
+                            ),
+                            contentPadding: const EdgeInsets.symmetric(
+                              horizontal: 16,
+                              vertical: 14,
                             ),
                           ),
-                          textCapitalization: TextCapitalization.words,
+                          style: const TextStyle(fontSize: 15),
+                          keyboardType: TextInputType.phone,
                           validator: (value) {
                             if (value == null || value.trim().isEmpty) {
-                              return 'El telefono es requerido';
+                              return 'El teléfono es requerido';
                             }
                             if (value.trim().length < 8) {
-                              return 'El telefono debe tener al menos 8 caracteres';
+                              return 'El teléfono debe tener al menos 8 caracteres';
                             }
                             return null;
                           },
@@ -323,22 +360,69 @@ class _UniversidadFbFormViewState extends State<UniversidadFbFormView> {
                         TextFormField(
                           controller: _paginaWebController,
                           decoration: InputDecoration(
-                            labelText: 'Pagina Web',
-                            hintText: 'Ingresa la pagina web de la universidad',
+                            labelText: 'Página Web',
+                            hintText: 'https://ejemplo.com',
+                            prefixIcon: const Icon(Icons.link, size: 20),
+                            suffixIcon: _paginaWebController.text.isNotEmpty
+                                ? IconButton(
+                                    icon: const Icon(
+                                      Icons.open_in_browser,
+                                      size: 20,
+                                    ),
+                                    onPressed: () {
+                                      final url = _paginaWebController.text;
+                                      if (url.isNotEmpty) {
+                                        _launchURL(url);
+                                      }
+                                    },
+                                  )
+                                : null,
                             border: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(8),
+                              borderRadius: BorderRadius.circular(12),
+                              borderSide: BorderSide(
+                                color: Theme.of(context).colorScheme.outline,
+                                width: 1.5,
+                              ),
                             ),
-                            alignLabelWithHint: true,
+                            enabledBorder: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(12),
+                              borderSide: BorderSide(
+                                color: Theme.of(
+                                  context,
+                                ).colorScheme.outline.withOpacity(0.5),
+                                width: 1.5,
+                              ),
+                            ),
+                            focusedBorder: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(12),
+                              borderSide: BorderSide(
+                                color: Theme.of(context).colorScheme.primary,
+                                width: 2,
+                              ),
+                            ),
+                            contentPadding: const EdgeInsets.symmetric(
+                              horizontal: 16,
+                              vertical: 14,
+                            ),
                           ),
-                          maxLines: 3,
-                          textCapitalization: TextCapitalization.sentences,
+                          style: const TextStyle(fontSize: 15),
+                          keyboardType: TextInputType.url,
+                          onChanged: (value) => setState(() {}),
                           validator: (value) {
                             if (value == null || value.trim().isEmpty) {
-                              return 'La pagina web es requerida';
+                              return 'La página web es requerida';
                             }
-                            if (value.trim().length < 10) {
-                              return 'La pagina web debe tener al menos 10 caracteres';
+
+                            // Validar formato de URL
+                            final urlPattern =
+                                r'^(https?|http):\/\/[^\s/\$.?#].[^\s]*\.[^\s]{2,}';
+                            if (!RegExp(
+                              urlPattern,
+                              caseSensitive: false,
+                            ).hasMatch(value)) {
+                              return 'Ingrese una URL válida (ej: https://ejemplo.com)';
                             }
+
                             return null;
                           },
                         ),

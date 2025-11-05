@@ -45,8 +45,7 @@ class UniversidadService {
     await _ref.doc(id).delete();
   }
 
-  //!/ Observa los cambios en la colección de universidades
-  /// y devuelve una lista de universidades actualizada
+  /// Devuelve una lista de universidades actualizada
   static Stream<List<UniversidadFb>> watchUniversidades() {
     return _ref.snapshots().map((snapshot) {
       return snapshot.docs
