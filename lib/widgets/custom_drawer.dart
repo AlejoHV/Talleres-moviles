@@ -157,6 +157,14 @@ class CustomDrawer extends StatelessWidget {
               route: '/marvel',
             ),
 
+            //!UNIVERSIDADES FB
+            _buildMenuItem(
+              context: context,
+              icon: Icons.cloud,
+              title: 'Universidades Firebase',
+              route: '/universidadesfb',
+            ),
+
             const SizedBox(height: 20),
 
             // Footer decorativo

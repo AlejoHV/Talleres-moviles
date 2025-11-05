@@ -22,7 +22,9 @@ class AuthNotifier extends ChangeNotifier {
         _setState(const AuthState(status: AuthStatus.idle));
       }
     } catch (error) {
-      _setState(AuthState(status: AuthStatus.error, errorMessage: error.toString()));
+      _setState(
+        AuthState(status: AuthStatus.error, errorMessage: error.toString()),
+      );
     }
   }
 
@@ -36,20 +38,21 @@ class AuthNotifier extends ChangeNotifier {
       await _repository.register(name: name, email: email, password: password);
       await login(email: email, password: password);
     } catch (error) {
-      _setState(AuthState(status: AuthStatus.error, errorMessage: error.toString()));
+      _setState(
+        AuthState(status: AuthStatus.error, errorMessage: error.toString()),
+      );
     }
   }
 
-  Future<void> login({
-    required String email,
-    required String password,
-  }) async {
+  Future<void> login({required String email, required String password}) async {
     _setState(const AuthState(status: AuthStatus.loading));
     try {
       final user = await _repository.login(email: email, password: password);
       _setState(AuthState(status: AuthStatus.authenticated, user: user));
     } catch (error) {
-      _setState(AuthState(status: AuthStatus.error, errorMessage: error.toString()));
+      _setState(
+        AuthState(status: AuthStatus.error, errorMessage: error.toString()),
+      );
     }
   }
 
@@ -62,7 +65,9 @@ class AuthNotifier extends ChangeNotifier {
       await _repository.logout();
       _setState(const AuthState(status: AuthStatus.idle));
     } catch (error) {
-      _setState(AuthState(status: AuthStatus.error, errorMessage: error.toString()));
+      _setState(
+        AuthState(status: AuthStatus.error, errorMessage: error.toString()),
+      );
     }
   }
 
