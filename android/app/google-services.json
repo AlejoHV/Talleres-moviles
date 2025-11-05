@@ -1,13 +1,13 @@
 {
   "project_info": {
-    "project_number": "840161404933",
-    "project_id": "talleresmoviles-820cf",
-    "storage_bucket": "talleresmoviles-820cf.firebasestorage.app"
+    "project_number": "215018514801",
+    "project_id": "taller3-15524",
+    "storage_bucket": "taller3-15524.firebasestorage.app"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:840161404933:android:2037d287793e4385a3546c",
+        "mobilesdk_app_id": "1:215018514801:android:f760a92670c1f2a20a6ed0",
         "android_client_info": {
           "package_name": "com.example.talleresmoviles"
         }
@@ -15,7 +15,7 @@
       "oauth_client": [],
       "api_key": [
         {
-          "current_key": "AIzaSyBnMHwcFjSornn5X0crXuVhdWBGmT-cdOo"
+          "current_key": "AIzaSyDJDbprwgyuIWItwPBT4ExiYJpkSpCmxK4"
         }
       ],
       "services": {
